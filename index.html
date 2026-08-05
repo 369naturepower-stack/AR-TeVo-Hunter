@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,19 +14,24 @@
   --panel-border: rgba(255,255,255,0.08);
   --orange:#FF6A13;
   --yellow:#FFD400;
-  --blue:#29B6F6;
+  --blue:#1E9CFF;
+  --blue-deep:#0A63C9;
+  --blue-light:#7FD4FF;
   --green:#00E28A;
   --red:#FF3B5C;
+  --gold:#FFC22E;
+  --silver:#C8CDD6;
+  --bronze:#D08A50;
   --text:#F4F5F0;
-  --muted:#9399A6;
-  --stripe: repeating-linear-gradient(45deg, var(--yellow) 0 14px, #1a1a1a 14px 28px);
+  --muted:#8FA3B8;
+  --stripe: repeating-linear-gradient(45deg, var(--blue) 0 14px, #071522 14px 28px);
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 html,body{height:100%;}
 body{
   background:
-    radial-gradient(circle at 15% 0%, rgba(41,182,246,0.10), transparent 40%),
-    radial-gradient(circle at 90% 100%, rgba(255,106,19,0.12), transparent 45%),
+    radial-gradient(circle at 15% 0%, rgba(30,156,255,0.16), transparent 42%),
+    radial-gradient(circle at 90% 100%, rgba(10,99,201,0.18), transparent 48%),
     var(--bg-0);
   color:var(--text);
   font-family:'Inter', sans-serif;
@@ -35,7 +40,6 @@ body{
 }
 .app{ max-width:520px; margin:0 auto; min-height:100vh; display:flex; flex-direction:column; position:relative;}
 
-/* ===== HAZARD STRIPE BAR ===== */
 .hazard-bar{ height:6px; background:var(--stripe); flex-shrink:0; }
 
 /* ===== TOP HUD ===== */
@@ -47,21 +51,28 @@ body{
 .hud-logo{ display:flex; align-items:center; gap:10px; }
 .hud-logo .mark{
   width:34px;height:34px; border-radius:6px;
-  background:linear-gradient(135deg, var(--orange), var(--yellow));
+  background:linear-gradient(135deg, var(--blue-deep), var(--blue), var(--blue-light));
   display:flex; align-items:center; justify-content:center; font-size:18px;
-  box-shadow:0 0 0 2px var(--bg-1), 0 0 0 3px var(--orange);
+  box-shadow:0 0 0 2px var(--bg-1), 0 0 0 3px var(--blue);
 }
 .hud-logo h1{
   font-family:'Oswald', sans-serif; font-size:16px; letter-spacing:0.5px;
   text-transform:uppercase; line-height:1.05;
 }
 .hud-logo span{ display:block; font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--blue); letter-spacing:1.5px;}
-.hud-stats{ display:flex; gap:10px; font-family:'JetBrains Mono', monospace; }
+.hud-stats{ display:flex; gap:10px; font-family:'JetBrains Mono', monospace; align-items:center; }
+.sound-toggle{
+  background:var(--bg-2); border:1px solid var(--panel-border); border-radius:8px;
+  width:34px; height:34px; display:flex; align-items:center; justify-content:center;
+  font-size:15px; cursor:pointer; transition:.15s; flex-shrink:0;
+}
+.sound-toggle:active{ transform:scale(0.92); }
+.sound-toggle.muted{ border-color:var(--red); background:rgba(255,59,92,0.10); opacity:.7; }
 .stat{
   background:var(--bg-2); border:1px solid var(--panel-border); border-radius:8px;
   padding:5px 9px; text-align:center; min-width:52px;
 }
-.stat b{ display:block; font-size:14px; color:var(--yellow); }
+.stat b{ display:block; font-size:14px; color:var(--blue-light); }
 .stat small{ font-size:8px; color:var(--muted); letter-spacing:0.5px; }
 
 /* ===== SCREENS ===== */
@@ -77,7 +88,7 @@ body{
 }
 .hero::before{
   content:""; position:absolute; top:-40px; right:-40px; width:160px; height:160px;
-  background:radial-gradient(circle, rgba(255,106,19,0.35), transparent 70%);
+  background:radial-gradient(circle, rgba(30,156,255,0.40), transparent 70%);
 }
 .eyebrow{
   font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:2px;
@@ -85,11 +96,11 @@ body{
 }
 .eyebrow::before{ content:""; width:16px; height:2px; background:var(--blue); }
 .hero h2{
-  font-family:'Oswald', sans-serif; font-size:28px; line-height:1.1; text-transform:uppercase;
+  font-family:'Oswald', sans-serif; font-size:26px; line-height:1.12; text-transform:uppercase;
   margin-bottom:8px;
 }
-.hero h2 em{ font-style:normal; color:var(--orange); }
-.hero p{ color:var(--muted); font-size:13.5px; line-height:1.5; max-width:40ch; }
+.hero h2 em{ font-style:normal; color:var(--blue-light); }
+.hero p{ color:var(--muted); font-size:13.5px; line-height:1.5; max-width:42ch; }
 
 .section-label{
   font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted);
@@ -97,16 +108,16 @@ body{
 }
 .section-label::after{ content:""; flex:1; height:1px; background:var(--panel-border); }
 
-.cat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.cat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; max-height:340px; overflow-y:auto; padding-right:2px; }
 .cat-card{
   background:var(--bg-1); border:1px solid var(--panel-border); border-radius:12px;
   padding:14px; cursor:pointer; text-align:left; transition:.15s; position:relative; overflow:hidden;
 }
 .cat-card:active{ transform:scale(0.97); }
-.cat-card.selected{ border-color:var(--orange); box-shadow:0 0 0 1px var(--orange); }
-.cat-card .icon{ font-size:26px; margin-bottom:8px; display:block; }
-.cat-card .name{ font-family:'Oswald',sans-serif; font-size:14px; text-transform:uppercase; letter-spacing:.3px; }
-.cat-card .count{ font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--muted); margin-top:4px; }
+.cat-card.selected{ border-color:var(--blue); box-shadow:0 0 0 1px var(--blue); }
+.cat-card .icon{ font-size:24px; margin-bottom:8px; display:block; }
+.cat-card .name{ font-family:'Oswald',sans-serif; font-size:13px; text-transform:uppercase; letter-spacing:.3px; line-height:1.2; }
+.cat-card .count{ font-family:'JetBrains Mono', monospace; font-size:9.5px; color:var(--muted); margin-top:4px; }
 .cat-card .progress-track{ height:4px; background:var(--bg-2); border-radius:2px; margin-top:8px; overflow:hidden; }
 .cat-card .progress-fill{ height:100%; background:linear-gradient(90deg, var(--blue), var(--green)); width:0%; transition:width .4s; }
 
@@ -121,12 +132,35 @@ body{
   width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center;
   font-size:20px; flex-shrink:0;
 }
-.mode-btn.scan .m-icon{ background:rgba(41,182,246,0.15); color:var(--blue); }
-.mode-btn.quiz .m-icon{ background:rgba(255,212,0,0.15); color:var(--yellow); }
+.mode-btn.scan .m-icon{ background:rgba(30,156,255,0.16); color:var(--blue); }
+.mode-btn.quiz .m-icon{ background:rgba(127,212,255,0.16); color:var(--blue-light); }
 .mode-btn.race .m-icon{ background:rgba(255,59,92,0.15); color:var(--red); }
+.mode-btn.lb .m-icon{ background:rgba(255,194,46,0.15); color:var(--gold); }
 .mode-btn .m-title{ font-family:'Oswald', sans-serif; font-size:15px; text-transform:uppercase; letter-spacing:.3px; }
 .mode-btn .m-desc{ font-size:11.5px; color:var(--muted); margin-top:2px; }
-.mode-btn .m-arrow{ margin-left:auto; color:var(--muted); font-size:18px; }
+.mode-btn .m-badge{
+  margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:1px;
+  background:rgba(30,156,255,0.18); color:var(--blue-light); padding:3px 7px; border-radius:6px; text-transform:uppercase;
+}
+.mode-btn .m-arrow{ margin-left:8px; color:var(--muted); font-size:18px; }
+
+/* ===== NAME ENTRY ===== */
+.name-wrap{ flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+.name-wrap .n-icon{ font-size:44px; margin-bottom:6px; }
+.name-wrap h2{ font-family:'Oswald', sans-serif; font-size:22px; text-transform:uppercase; margin-bottom:6px; }
+.name-wrap p{ color:var(--muted); font-size:13px; margin-bottom:22px; max-width:34ch; }
+.name-input{
+  width:100%; max-width:320px; background:var(--bg-1); border:1px solid var(--panel-border);
+  border-radius:10px; padding:14px 16px; color:var(--text); font-family:'Oswald', sans-serif;
+  font-size:16px; text-align:center; text-transform:uppercase; letter-spacing:.5px; margin-bottom:14px;
+}
+.name-input:focus{ outline:none; border-color:var(--blue); }
+.name-input::placeholder{ color:var(--muted); text-transform:none; font-family:'Inter'; font-size:14px; }
+.name-wrap .btn{ max-width:320px; width:100%; }
+.name-cat-tag{
+  font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:1.5px; color:var(--blue);
+  background:rgba(41,182,246,0.12); padding:5px 12px; border-radius:20px; margin-bottom:18px; text-transform:uppercase;
+}
 
 /* ===== SCAN SCREEN ===== */
 .scan-wrap{
@@ -165,20 +199,20 @@ body{
 .ar-card{
   position:absolute; left:12px; right:12px; bottom:12px;
   background:rgba(20,22,28,0.94); backdrop-filter:blur(6px);
-  border:1px solid var(--orange); border-radius:14px; padding:16px;
+  border:1px solid var(--blue); border-radius:14px; padding:16px;
   transform:translateY(120%); transition:transform .4s cubic-bezier(.2,.9,.3,1.2);
 }
 .ar-card.show{ transform:translateY(0); }
 .ar-card .tag{
   display:inline-block; font-family:'JetBrains Mono', monospace; font-size:9px; letter-spacing:1.5px;
-  color:var(--bg-0); background:var(--orange); padding:2px 8px; border-radius:4px; margin-bottom:8px; text-transform:uppercase;
+  color:#031420; background:var(--blue); padding:2px 8px; border-radius:4px; margin-bottom:8px; text-transform:uppercase;
 }
 .ar-word-row{ display:flex; align-items:center; gap:10px; }
 .ar-word-row .icon{ font-size:30px; }
 .ar-word-row h3{ font-family:'Oswald', sans-serif; font-size:22px; text-transform:uppercase; }
 .ar-phonetic{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--blue); margin-top:2px; }
 .ar-meaning{ font-size:13.5px; color:var(--text); margin-top:8px; }
-.ar-meaning b{ color:var(--yellow); }
+.ar-meaning b{ color:var(--blue-light); }
 .ar-example{ font-size:12.5px; color:var(--muted); margin-top:6px; font-style:italic; }
 .ar-card-actions{ display:flex; gap:8px; margin-top:12px; }
 
@@ -188,10 +222,11 @@ body{
   display:flex; align-items:center; justify-content:center; gap:8px;
 }
 .btn:active{ transform:scale(0.96); }
-.btn-primary{ background:linear-gradient(90deg, var(--orange), var(--yellow)); color:#1a1200; flex:1; }
+.btn-primary{ background:linear-gradient(90deg, var(--blue-deep), var(--blue), var(--blue-light)); color:#031420; flex:1; }
 .btn-ghost{ background:var(--bg-2); color:var(--text); border:1px solid var(--panel-border); }
 .btn-block{ width:100%; margin-top:14px; }
 .btn-sm{ padding:9px 12px; font-size:11px; }
+.btn-gold{ background:linear-gradient(90deg, var(--gold), var(--yellow)); color:#241a00; }
 
 .scan-controls{ display:flex; gap:10px; margin-top:16px; }
 .scan-progress{ margin-top:14px; }
@@ -206,7 +241,7 @@ body{
 .timer-track{ width:100%; height:6px; background:var(--bg-2); border-radius:3px; overflow:hidden; margin-bottom:18px; }
 .timer-fill{ height:100%; background:linear-gradient(90deg, var(--green), var(--yellow), var(--red)); width:100%; transition:width 1s linear; }
 .quiz-icon-big{ font-size:44px; text-align:center; display:block; margin-bottom:6px;}
-.quiz-question{ font-family:'Oswald', sans-serif; font-size:19px; text-align:center; text-transform:uppercase; margin-bottom:4px; }
+.quiz-question{ font-family:'Oswald', sans-serif; font-size:18px; text-align:center; text-transform:uppercase; margin-bottom:4px; }
 .quiz-sub{ text-align:center; color:var(--muted); font-size:12.5px; margin-bottom:18px; }
 .opt-grid{ display:flex; flex-direction:column; gap:10px; }
 .opt-btn{
@@ -235,7 +270,7 @@ body{
   padding:26px 18px; text-align:center; margin-bottom:16px;
 }
 .race-card .icon{ font-size:40px; }
-.race-card .word{ font-family:'Oswald', sans-serif; font-size:24px; text-transform:uppercase; margin-top:6px; }
+.race-card .word{ font-family:'Oswald', sans-serif; font-size:22px; text-transform:uppercase; margin-top:6px; }
 .race-opts{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .race-opt{
   background:var(--bg-2); border:1px solid var(--panel-border); border-radius:10px;
@@ -249,30 +284,73 @@ body{
 .result-hero .big-icon{ font-size:56px; }
 .result-hero h2{ font-family:'Oswald',sans-serif; font-size:24px; text-transform:uppercase; margin-top:10px; }
 .result-score{
-  font-family:'JetBrains Mono', monospace; font-size:42px; color:var(--yellow); margin:10px 0;
+  font-family:'JetBrains Mono', monospace; font-size:42px; color:var(--blue-light); margin:10px 0;
 }
 .badge-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:16px; }
 .badge{
   background:var(--bg-1); border:1px solid var(--panel-border); border-radius:12px; padding:12px 6px;
   text-align:center; opacity:.3; filter:grayscale(1);
 }
-.badge.earned{ opacity:1; filter:none; border-color:var(--yellow); box-shadow:0 0 0 1px var(--yellow); }
+.badge.earned{ opacity:1; filter:none; border-color:var(--blue); box-shadow:0 0 0 1px var(--blue); }
 .badge .b-icon{ font-size:22px; }
-.badge .b-name{ font-size:9px; color:var(--muted); margin-top:4px; letter-spacing:.3px; }
+.badge .b-name{ font-size:8.5px; color:var(--muted); margin-top:4px; letter-spacing:.3px; }
+
+/* ===== LEADERBOARD ===== */
+.lb-tabs{ display:flex; gap:8px; margin-bottom:16px; }
+.lb-tab{
+  flex:1; background:var(--bg-1); border:1px solid var(--panel-border); border-radius:10px;
+  padding:10px; text-align:center; cursor:pointer; font-family:'Oswald', sans-serif; font-size:12px;
+  text-transform:uppercase; letter-spacing:.4px; color:var(--muted);
+}
+.lb-tab.active{ border-color:var(--gold); color:var(--gold); background:rgba(255,194,46,0.08); }
+.lb-panel{ display:none; }
+.lb-panel.active{ display:block; }
+.lb-empty{ text-align:center; color:var(--muted); font-size:13px; padding:30px 10px; }
+.lb-row{
+  display:flex; align-items:center; gap:12px; background:var(--bg-1); border:1px solid var(--panel-border);
+  border-radius:12px; padding:12px 14px; margin-bottom:8px;
+}
+.lb-row.winner{ border-color:var(--gold); background:linear-gradient(90deg, rgba(255,194,46,0.14), rgba(255,194,46,0.02)); box-shadow:0 0 0 1px var(--gold); }
+.lb-rank{
+  font-family:'JetBrains Mono', monospace; font-size:14px; width:28px; height:28px; border-radius:8px;
+  background:var(--bg-2); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--muted);
+}
+.lb-row.rank-1 .lb-rank{ background:var(--gold); color:#241a00; }
+.lb-row.rank-2 .lb-rank{ background:var(--silver); color:#1a1a1a; }
+.lb-row.rank-3 .lb-rank{ background:var(--bronze); color:#2b1500; }
+.lb-info{ flex:1; min-width:0; }
+.lb-name{ font-family:'Oswald', sans-serif; font-size:14.5px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lb-meta{ font-family:'JetBrains Mono', monospace; font-size:9.5px; color:var(--muted); margin-top:2px; }
+.lb-score{ font-family:'JetBrains Mono', monospace; font-size:18px; color:var(--blue-light); flex-shrink:0; }
+.lb-crown{ font-size:16px; margin-left:4px; }
+.lb-actions{ display:flex; gap:10px; margin-top:16px; }
+
+/* Presentation / big-screen mode for classroom projection */
+body.present .hud{ display:none; }
+body.present .bottom-nav{ display:none; }
+body.present .screen{ padding-bottom:20px; }
+body.present .app{ max-width:760px; }
+body.present .section-label{ font-size:14px; }
+body.present .lb-name{ font-size:20px; }
+body.present .lb-score{ font-size:26px; }
+body.present .lb-rank{ width:38px; height:38px; font-size:18px; }
+body.present .lb-meta{ font-size:11.5px; }
+body.present .lb-row{ padding:16px 18px; }
+body.present .result-score{ font-size:60px; }
 
 /* ===== BOTTOM NAV ===== */
 .bottom-nav{
   position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:520px;
   background:var(--bg-1); border-top:1px solid var(--panel-border); display:flex;
-  padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  padding:9px 10px calc(9px + env(safe-area-inset-bottom));
 }
 .nav-btn{
   flex:1; background:none; border:none; color:var(--muted); font-family:'JetBrains Mono',monospace;
-  font-size:9px; letter-spacing:1px; text-transform:uppercase; display:flex; flex-direction:column;
-  align-items:center; gap:4px; cursor:pointer; padding:6px;
+  font-size:8.5px; letter-spacing:0.6px; text-transform:uppercase; display:flex; flex-direction:column;
+  align-items:center; gap:4px; cursor:pointer; padding:5px 2px;
 }
-.nav-btn .n-icon{ font-size:18px; }
-.nav-btn.active{ color:var(--orange); }
+.nav-btn .n-icon{ font-size:17px; }
+.nav-btn.active{ color:var(--blue-light); }
 
 .hidden{ display:none !important; }
 
@@ -295,8 +373,11 @@ body{
       </div>
     </div>
     <div class="hud-stats">
-      <div class="stat"><b id="statScore">0</b><small>SKOR</small></div>
+      <div class="stat"><b id="statScore">0</b><small>SCORE</small></div>
       <div class="stat"><b id="statStreak">0</b><small>STREAK</small></div>
+      <button class="sound-toggle" id="btnSoundToggle" aria-pressed="true" aria-label="Toggle sound effects">
+        <span id="soundIcon">🔊</span>
+      </button>
     </div>
   </div>
 
@@ -304,30 +385,50 @@ body{
   <div class="screen active" id="screen-home">
     <div class="hero">
       <div class="eyebrow">SMK Teknik · English Vocabulary Lab</div>
-      <h2>Buru Kosakata<br><em>Dunia Teknik</em> Pakai AR</h2>
-      <p>Pindai bengkel virtualmu, kumpulkan istilah teknis bahasa Inggris, dan uji kecepatanmu lewat tantangan seru.</p>
+      <h2>Hunt Down <em>Technical Vocabulary</em> With AR</h2>
+      <p>Scan your virtual workshop, collect technical English terms from your major, and compete with your classmates for the top score.</p>
     </div>
 
-    <div class="section-label">Pilih Kategori</div>
+    <div class="section-label">Choose Category</div>
     <div class="cat-grid" id="catGrid"></div>
 
-    <div class="section-label">Pilih Mode Permainan</div>
+    <div class="section-label">Choose Game Mode</div>
     <div class="mode-list">
       <button class="mode-btn scan" data-mode="scan">
         <div class="m-icon">📡</div>
-        <div><div class="m-title">Scan & Learn</div><div class="m-desc">Pindai objek AR, kumpulkan kartu kosakata</div></div>
+        <div><div class="m-title">Scan & Learn</div><div class="m-desc">Scan AR objects and collect vocabulary cards</div></div>
         <div class="m-arrow">›</div>
       </button>
       <button class="mode-btn quiz" data-mode="quiz">
         <div class="m-icon">🎯</div>
-        <div><div class="m-title">Quiz Challenge</div><div class="m-desc">10 soal pilihan ganda, adu skor tertinggi</div></div>
+        <div><div class="m-title">Quiz Challenge</div><div class="m-desc">10 multiple-choice questions, race for the top score</div></div>
+        <div class="m-badge">Ranked</div>
         <div class="m-arrow">›</div>
       </button>
       <button class="mode-btn race" data-mode="race">
         <div class="m-icon">⚡</div>
-        <div><div class="m-title">Word Race</div><div class="m-desc">60 detik, jawab sebanyak mungkin!</div></div>
+        <div><div class="m-title">Word Race</div><div class="m-desc">60 seconds — answer as many words as you can!</div></div>
+        <div class="m-badge">Ranked</div>
         <div class="m-arrow">›</div>
       </button>
+      <button class="mode-btn lb" data-mode="leaderboard">
+        <div class="m-icon">🏆</div>
+        <div><div class="m-title">Class Leaderboard</div><div class="m-desc">See the top scorers — great for classroom competitions</div></div>
+        <div class="m-arrow">›</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===================== NAME ENTRY (before ranked modes) ===================== -->
+  <div class="screen" id="screen-name">
+    <div class="name-wrap">
+      <div class="n-icon" id="nameIcon">🎯</div>
+      <h2 id="nameTitle">Enter Your Name</h2>
+      <p id="nameSub">Your name will appear on the class leaderboard if you score high enough. Good luck, technician!</p>
+      <div class="name-cat-tag" id="nameCatTag">CATEGORY: AUTOMOTIVE</div>
+      <input type="text" class="name-input" id="nameInput" placeholder="e.g. Ahmad Fauzi" maxlength="20">
+      <button class="btn btn-primary" id="btnStartRanked" style="max-width:320px;">Start Challenge 🚀</button>
+      <button class="btn btn-ghost" id="btnCancelName" style="max-width:320px; margin-top:10px;">‹ Back</button>
     </div>
   </div>
 
@@ -336,14 +437,14 @@ body{
     <div class="scan-wrap" id="scanWrap">
       <div class="scan-fallback-bg" id="scanFallback"></div>
       <video id="camVideo" autoplay playsinline muted></video>
-      <div class="scan-status"><span class="dot"></span><span id="scanStatusText">SIAP MEMINDAI</span></div>
+      <div class="scan-status"><span class="dot"></span><span id="scanStatusText">READY TO SCAN</span></div>
       <div class="reticle">
         <div class="corner tl"></div><div class="corner tr"></div>
         <div class="corner bl"></div><div class="corner br"></div>
         <div class="scan-line" id="scanLine"></div>
       </div>
       <div class="ar-card" id="arCard">
-        <span class="tag" id="arTag">TERDETEKSI</span>
+        <span class="tag" id="arTag">DETECTED</span>
         <div class="ar-word-row">
           <span class="icon" id="arIcon">🔧</span>
           <div>
@@ -351,23 +452,23 @@ body{
             <div class="ar-phonetic" id="arPhonetic">/rench/</div>
           </div>
         </div>
-        <div class="ar-meaning" id="arMeaning"><b>Arti:</b> Kunci pas</div>
+        <div class="ar-meaning" id="arMeaning"><b>Meaning:</b> Kunci pas</div>
         <div class="ar-example" id="arExample">"Use the wrench to loosen the bolt."</div>
         <div class="ar-card-actions">
-          <button class="btn btn-ghost btn-sm" id="btnSpeak">🔊 Dengar</button>
-          <button class="btn btn-primary btn-sm" id="btnCollect">✓ Simpan Kartu</button>
+          <button class="btn btn-ghost btn-sm" id="btnSpeak">🔊 Listen</button>
+          <button class="btn btn-primary btn-sm" id="btnCollect">✓ Save Card</button>
         </div>
       </div>
     </div>
 
     <div class="scan-controls">
-      <button class="btn btn-ghost" id="btnBackHome1">‹ Kembali</button>
-      <button class="btn btn-primary" id="btnScan">📡 Pindai Objek</button>
+      <button class="btn btn-ghost" id="btnBackHome1">‹ Back</button>
+      <button class="btn btn-primary" id="btnScan">📡 Scan Object</button>
     </div>
 
     <div class="scan-progress">
       <div class="bar-track"><div class="bar-fill" id="scanBarFill"></div></div>
-      <div class="lbl"><span id="scanCollected">0 dikumpulkan</span><span id="scanTotal">/ 10 kata</span></div>
+      <div class="lbl"><span id="scanCollected">0 collected</span><span id="scanTotal">/ 10 words</span></div>
     </div>
   </div>
 
@@ -375,13 +476,13 @@ body{
   <div class="screen" id="screen-quiz">
     <div class="quiz-card">
       <div class="quiz-top">
-        <span class="quiz-num" id="quizNum">SOAL 1 / 10</span>
-        <span class="quiz-num" id="quizCat">OTOMOTIF</span>
+        <span class="quiz-num" id="quizNum">QUESTION 1 / 10</span>
+        <span class="quiz-num" id="quizCat">AUTOMOTIVE</span>
       </div>
       <div class="timer-track"><div class="timer-fill" id="quizTimerFill"></div></div>
       <span class="quiz-icon-big" id="quizIcon">🔧</span>
-      <div class="quiz-question" id="quizQuestion">Kata untuk "Kunci pas" adalah?</div>
-      <div class="quiz-sub" id="quizSub">Pilih jawaban bahasa Inggris yang tepat</div>
+      <div class="quiz-question" id="quizQuestion">Which English word means "kunci pas"?</div>
+      <div class="quiz-sub" id="quizSub">Choose the correct English word</div>
       <div class="opt-grid" id="quizOpts"></div>
     </div>
   </div>
@@ -396,7 +497,7 @@ body{
       <div class="icon" id="raceIcon">⚡</div>
       <div class="word" id="raceWord">SPARK PLUG</div>
     </div>
-    <div class="quiz-sub" style="margin-bottom:10px;">Pilih arti bahasa Indonesia yang tepat, secepat mungkin!</div>
+    <div class="quiz-sub" style="margin-bottom:10px;">Choose the correct meaning as fast as you can!</div>
     <div class="race-opts" id="raceOpts"></div>
   </div>
 
@@ -404,22 +505,48 @@ body{
   <div class="screen" id="screen-result">
     <div class="result-hero">
       <div class="big-icon" id="resultIcon">🏆</div>
-      <h2 id="resultTitle">Kerja Bagus, Teknisi!</h2>
+      <h2 id="resultTitle">Great Job, Technician!</h2>
       <div class="result-score" id="resultScore">0</div>
-      <div class="quiz-sub" id="resultDetail">Total skor kamu</div>
+      <div class="quiz-sub" id="resultDetail">Your total score</div>
     </div>
-    <div class="section-label">Lencana Diraih</div>
+    <div class="section-label">Badges Earned</div>
     <div class="badge-grid" id="badgeGrid"></div>
-    <button class="btn btn-primary btn-block" id="btnReplay">🔁 Main Lagi</button>
-    <button class="btn btn-ghost btn-block" id="btnHome2">🏠 Kembali ke Menu</button>
+    <div class="lb-actions">
+      <button class="btn btn-gold" id="btnViewLB">🏆 View Leaderboard</button>
+    </div>
+    <button class="btn btn-primary btn-block" id="btnReplay">🔁 Play Again</button>
+    <button class="btn btn-ghost btn-block" id="btnHome2">🏠 Back to Menu</button>
+  </div>
+
+  <!-- ===================== LEADERBOARD ===================== -->
+  <div class="screen" id="screen-leaderboard">
+    <div class="section-label" style="margin-top:0;">Class Competition</div>
+    <div class="lb-tabs">
+      <div class="lb-tab active" data-tab="quiz">🎯 Quiz Challenge</div>
+      <div class="lb-tab" data-tab="race">⚡ Word Race</div>
+    </div>
+
+    <div class="lb-panel active" id="lbPanelQuiz">
+      <div id="lbQuizList"></div>
+    </div>
+    <div class="lb-panel" id="lbPanelRace">
+      <div id="lbRaceList"></div>
+    </div>
+
+    <div class="lb-actions">
+      <button class="btn btn-ghost" id="btnPresent">📽 Presentation Mode</button>
+      <button class="btn btn-ghost" id="btnResetLB">🗑 Reset</button>
+    </div>
+    <button class="btn btn-primary btn-block" id="btnHome3">🏠 Back to Menu</button>
   </div>
 
   <!-- BOTTOM NAV -->
   <div class="bottom-nav">
-    <button class="nav-btn active" data-nav="home"><span class="n-icon">🏠</span>Beranda</button>
+    <button class="nav-btn active" data-nav="home"><span class="n-icon">🏠</span>Home</button>
     <button class="nav-btn" data-nav="scan"><span class="n-icon">📡</span>Scan</button>
     <button class="nav-btn" data-nav="quiz"><span class="n-icon">🎯</span>Quiz</button>
     <button class="nav-btn" data-nav="race"><span class="n-icon">⚡</span>Race</button>
+    <button class="nav-btn" data-nav="leaderboard"><span class="n-icon">🏆</span>Ranks</button>
   </div>
 </div>
 
@@ -427,9 +554,9 @@ body{
 (function(){
 "use strict";
 
-/* ============ VOCAB DATA ============ */
+/* ============ VOCAB DATA (9 majors / categories) ============ */
 const VOCAB = {
-  otomotif: { name:"Otomotif", icon:"🚗", color:"var(--orange)", words:[
+  otomotif: { name:"Automotive", icon:"🚗", words:[
     {w:"Wrench", ph:"/rench/", m:"Kunci pas", ex:"Use the wrench to loosen the bolt.", ic:"🔧"},
     {w:"Piston", ph:"/PIS-tuhn/", m:"Piston", ex:"The piston moves inside the cylinder.", ic:"⚙️"},
     {w:"Gearbox", ph:"/GEER-boks/", m:"Girboks / transmisi", ex:"Check the gearbox oil regularly.", ic:"⚙️"},
@@ -441,7 +568,7 @@ const VOCAB = {
     {w:"Jack", ph:"/jak/", m:"Dongkrak", ex:"Lift the car with a jack first.", ic:"🚗"},
     {w:"Oil Filter", ph:"/oyl FIL-ter/", m:"Filter oli", ex:"Change the oil filter every service.", ic:"🛢️"},
   ]},
-  kelistrikan: { name:"Kelistrikan", icon:"⚡", color:"var(--blue)", words:[
+  kelistrikan: { name:"Electronics", icon:"🔬", words:[
     {w:"Multimeter", ph:"/MUHL-tee-mee-ter/", m:"Multimeter", ex:"Use a multimeter to check voltage.", ic:"📟"},
     {w:"Circuit Breaker", ph:"/SUR-kit BREY-ker/", m:"Pemutus arus", ex:"The circuit breaker trips during overload.", ic:"⚡"},
     {w:"Soldering Iron", ph:"/SOL-der-ing AHY-ern/", m:"Solder", ex:"Heat the soldering iron before use.", ic:"🔥"},
@@ -453,7 +580,7 @@ const VOCAB = {
     {w:"Switch", ph:"/swich/", m:"Saklar", ex:"Turn on the switch to power the device.", ic:"💡"},
     {w:"Relay", ph:"/REE-ley/", m:"Relai", ex:"The relay controls a high-power circuit.", ic:"🔗"},
   ]},
-  keselamatan: { name:"Keselamatan", icon:"🦺", color:"var(--yellow)", words:[
+  keselamatan: { name:"Safety Equipment", icon:"🦺", words:[
     {w:"Safety Goggles", ph:"/SEYF-tee GOG-uhlz/", m:"Kacamata pelindung", ex:"Wear safety goggles when grinding metal.", ic:"🥽"},
     {w:"Helmet", ph:"/HEL-mit/", m:"Helm", ex:"Always wear a helmet on site.", ic:"⛑️"},
     {w:"Gloves", ph:"/gluhvz/", m:"Sarung tangan", ex:"Put on gloves before handling chemicals.", ic:"🧤"},
@@ -465,7 +592,7 @@ const VOCAB = {
     {w:"Steel-toe Boots", ph:"/steel-toh boots/", m:"Sepatu safety", ex:"Steel-toe boots protect your feet.", ic:"🥾"},
     {w:"Warning Sign", ph:"/WAWR-ning sahyn/", m:"Rambu peringatan", ex:"Follow every warning sign in the lab.", ic:"⚠️"},
   ]},
-  perkakas: { name:"Perkakas", icon:"🛠️", color:"var(--green)", words:[
+  perkakas: { name:"General Tools", icon:"🛠️", words:[
     {w:"Hammer", ph:"/HAM-er/", m:"Palu", ex:"Use a hammer to drive the nail.", ic:"🔨"},
     {w:"Pliers", ph:"/PLAHY-erz/", m:"Tang", ex:"Grip the wire with pliers.", ic:"🛠️"},
     {w:"Screwdriver", ph:"/SKROO-drahy-ver/", m:"Obeng", ex:"Tighten the screw with a screwdriver.", ic:"🪛"},
@@ -477,17 +604,81 @@ const VOCAB = {
     {w:"File", ph:"/fahyl/", m:"Kikir", ex:"Smooth the edge with a file.", ic:"🗜️"},
     {w:"Clamp", ph:"/klamp/", m:"Klem / penjepit", ex:"Hold the parts together with a clamp.", ic:"🗜️"},
   ]},
+  tkj: { name:"Computer & Network (TKJ)", icon:"💻", words:[
+    {w:"Router", ph:"/ROO-ter/", m:"Router (alat penghubung jaringan)", ex:"Configure the router to connect to the internet.", ic:"📡"},
+    {w:"Network Switch", ph:"/NET-wurk swich/", m:"Sakelar jaringan", ex:"The network switch connects multiple devices.", ic:"🔀"},
+    {w:"Server", ph:"/SUR-ver/", m:"Server (peladen)", ex:"The server stores all company data.", ic:"🖥️"},
+    {w:"LAN Cable", ph:"/lan KEY-buhl/", m:"Kabel LAN", ex:"Connect the LAN cable to the port.", ic:"🔌"},
+    {w:"IP Address", ph:"/ahy-pee A-dres/", m:"Alamat IP", ex:"Each device needs a unique IP address.", ic:"🌐"},
+    {w:"Firewall", ph:"/FAHYUR-wawl/", m:"Firewall (tembok api)", ex:"The firewall blocks unauthorized access.", ic:"🛡️"},
+    {w:"Bandwidth", ph:"/BAND-width/", m:"Lebar pita (kapasitas jaringan)", ex:"Low bandwidth causes slow internet speed.", ic:"📶"},
+    {w:"Modem", ph:"/MOH-dem/", m:"Modem", ex:"The modem converts signals for internet access.", ic:"📠"},
+    {w:"Network Topology", ph:"/NET-wurk tuh-POL-uh-jee/", m:"Topologi jaringan", ex:"Star topology is common in offices.", ic:"🕸️"},
+    {w:"Access Point", ph:"/AK-ses poynt/", m:"Titik akses (Wi-Fi)", ex:"The access point provides wireless connection.", ic:"📡"},
+  ]},
+  broadcasting: { name:"Broadcasting", icon:"🎬", words:[
+    {w:"Microphone", ph:"/MAHY-kruh-fohn/", m:"Mikrofon", ex:"Speak clearly into the microphone.", ic:"🎤"},
+    {w:"Camera Tripod", ph:"/KAM-er-uh TRAHY-pod/", m:"Tripod kamera", ex:"Set the camera tripod for a stable shot.", ic:"📷"},
+    {w:"Teleprompter", ph:"/TEL-uh-promp-ter/", m:"Teleprompter (alat bantu baca naskah)", ex:"The anchor reads the teleprompter smoothly.", ic:"📺"},
+    {w:"Broadcast Studio", ph:"/BRAWD-kast STOO-dee-oh/", m:"Studio siaran", ex:"The show is recorded in the broadcast studio.", ic:"🎬"},
+    {w:"Editing Software", ph:"/ED-i-ting SAWFT-wair/", m:"Perangkat lunak penyunting", ex:"Use editing software to cut the footage.", ic:"💻"},
+    {w:"Green Screen", ph:"/green skreen/", m:"Layar hijau", ex:"The presenter stands in front of a green screen.", ic:"🟩"},
+    {w:"Audio Mixer", ph:"/AW-dee-oh MIK-ser/", m:"Pencampur audio", ex:"The audio mixer balances all sound levels.", ic:"🎚️"},
+    {w:"Live Streaming", ph:"/lahyv STREE-ming/", m:"Siaran langsung", ex:"The event is shown through live streaming.", ic:"🔴"},
+    {w:"Script", ph:"/skript/", m:"Naskah", ex:"The reporter follows the script closely.", ic:"📝"},
+    {w:"Boom Pole", ph:"/boom pohl/", m:"Tongkat mikrofon", ex:"The boom pole holds the microphone above the actors.", ic:"🎙️"},
+  ]},
+  elektro: { name:"Electrical Power (Elektro)", icon:"🔌", words:[
+    {w:"Generator", ph:"/JEN-uh-rey-ter/", m:"Generator (pembangkit listrik)", ex:"The generator supplies power during a blackout.", ic:"🔋"},
+    {w:"Distribution Panel", ph:"/dis-truh-BYOO-shuhn PAN-uhl/", m:"Panel distribusi", ex:"The distribution panel controls electricity in the building.", ic:"🗄️"},
+    {w:"Ampere Meter", ph:"/AM-peer MEE-ter/", m:"Ampermeter", ex:"Use an ampere meter to measure current.", ic:"📟"},
+    {w:"Grounding Wire", ph:"/GROUND-ing wahyuhr/", m:"Kabel pentanahan (arde)", ex:"The grounding wire prevents electric shock.", ic:"🧵"},
+    {w:"Voltage Regulator", ph:"/VOHL-tij REG-yuh-ley-ter/", m:"Pengatur tegangan", ex:"A voltage regulator keeps power supply stable.", ic:"⚙️"},
+    {w:"Power Line", ph:"/POU-er lahyn/", m:"Kabel listrik tegangan tinggi", ex:"The power line carries electricity to homes.", ic:"🗼"},
+    {w:"Insulation Tape", ph:"/in-suh-LEY-shuhn teyp/", m:"Isolasi listrik", ex:"Wrap the wire with insulation tape.", ic:"🎗️"},
+    {w:"Circuit Diagram", ph:"/SUR-kit DAHY-uh-gram/", m:"Diagram rangkaian", ex:"Follow the circuit diagram to wire the panel.", ic:"🗺️"},
+    {w:"Substation", ph:"/SUHB-stey-shuhn/", m:"Gardu induk", ex:"Electricity passes through a substation before distribution.", ic:"🏭"},
+    {w:"Three-Phase Power", ph:"/three-feyz POU-er/", m:"Listrik tiga fasa", ex:"Industrial machines often use three-phase power.", ic:"⚡"},
+  ]},
+  bangunan: { name:"Building & Construction", icon:"🏗️", words:[
+    {w:"Blueprint", ph:"/BLOO-print/", m:"Cetak biru / gambar rancangan", ex:"The workers follow the blueprint carefully.", ic:"📐"},
+    {w:"Foundation", ph:"/foun-DEY-shuhn/", m:"Pondasi", ex:"A strong foundation supports the whole building.", ic:"🏗️"},
+    {w:"Scaffolding", ph:"/SKAF-uhl-ding/", m:"Perancah", ex:"Workers climb the scaffolding to reach the roof.", ic:"🪜"},
+    {w:"Concrete Mixer", ph:"/KON-kreet MIK-ser/", m:"Molen (pengaduk beton)", ex:"The concrete mixer blends cement and sand.", ic:"🌀"},
+    {w:"Trowel", ph:"/TROU-uhl/", m:"Sendok semen", ex:"Use a trowel to spread the mortar.", ic:"🛠️"},
+    {w:"Plumb Bob", ph:"/pluhm bob/", m:"Unting-unting", ex:"The plumb bob checks if the wall is vertical.", ic:"⚖️"},
+    {w:"Cement", ph:"/si-MENT/", m:"Semen", ex:"Mix cement with sand and water.", ic:"🧱"},
+    {w:"Rebar", ph:"/REE-bahr/", m:"Besi tulangan", ex:"Rebar strengthens the concrete structure.", ic:"🔩"},
+    {w:"Bricklaying", ph:"/BRIK-ley-ing/", m:"Pemasangan bata", ex:"Bricklaying requires precision and patience.", ic:"🧱"},
+    {w:"Wheelbarrow", ph:"/WEEL-ba-roh/", m:"Gerobak dorong", ex:"Carry the sand using a wheelbarrow.", ic:"🛒"},
+  ]},
+  mesin: { name:"Mechanical Engineering", icon:"⚙️", words:[
+    {w:"Lathe Machine", ph:"/leyth muh-SHEEN/", m:"Mesin bubut", ex:"The lathe machine shapes the metal rod.", ic:"🌀"},
+    {w:"Milling Machine", ph:"/MIL-ing muh-SHEEN/", m:"Mesin frais", ex:"The milling machine cuts flat surfaces on metal.", ic:"⚙️"},
+    {w:"Welding Machine", ph:"/WELD-ing muh-SHEEN/", m:"Mesin las", ex:"The welding machine joins two metal plates.", ic:"🔥"},
+    {w:"Bearing", ph:"/BAIR-ing/", m:"Bantalan (laher)", ex:"The bearing reduces friction between moving parts.", ic:"⚪"},
+    {w:"Gear", ph:"/geer/", m:"Roda gigi", ex:"The gear transfers rotational motion.", ic:"⚙️"},
+    {w:"Hydraulic Press", ph:"/hahy-DRAW-lik pres/", m:"Mesin press hidrolik", ex:"The hydraulic press shapes metal sheets.", ic:"🏋️"},
+    {w:"Conveyor Belt", ph:"/kuhn-VEY-er belt/", m:"Ban berjalan", ex:"The conveyor belt moves parts along the line.", ic:"🔁"},
+    {w:"Cylinder Bore", ph:"/SIL-in-der bawr/", m:"Silinder (lubang)", ex:"The cylinder bore holds the piston.", ic:"⚙️"},
+    {w:"CNC Machine", ph:"/see-en-see muh-SHEEN/", m:"Mesin CNC", ex:"A CNC machine cuts metal with high precision.", ic:"🖥️"},
+    {w:"Sheet Metal", ph:"/sheet MET-l/", m:"Pelat logam", ex:"Sheet metal is used to build the car body.", ic:"🪙"},
+  ]},
 };
 
-/* ============ STATE (in-memory only) ============ */
+/* ============ STATE (in-memory only, resets on page reload) ============ */
 const state = {
   score:0, streak:0, bestStreak:0,
   category:"otomotif",
-  collected:{}, // per category set of collected words
+  collected:{},
   scanCurrentWord:null,
-  quiz:{ queue:[], index:0, timer:null, timeLeft:15 },
+  studentName:"",
+  pendingMode:null,
+  quiz:{ queue:[], index:0, timer:null, timeLeft:15, sessionPoints:0, correctCount:0 },
   race:{ timer:null, timeLeft:60, score:0, active:false },
   badgesEarned:new Set(),
+  leaderboards:{ quiz:[], race:[] },
+  soundOn:true,
 };
 Object.keys(VOCAB).forEach(k=> state.collected[k] = new Set());
 
@@ -502,6 +693,49 @@ function speak(text){
     window.speechSynthesis.speak(u);
   }catch(e){}
 }
+
+/* ============ SOUND EFFECTS (Web Audio, no external files) ============ */
+let audioCtx = null;
+function getAudioCtx(){
+  if(!audioCtx){
+    try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){ return null; }
+  }
+  if(audioCtx.state === "suspended"){ audioCtx.resume(); }
+  return audioCtx;
+}
+function playTone(freq, duration, type, delay, gain){
+  if(!state.soundOn) return;
+  const ctx = getAudioCtx();
+  if(!ctx) return;
+  const osc = ctx.createOscillator();
+  const g = ctx.createGain();
+  osc.type = type || "sine";
+  osc.frequency.value = freq;
+  const startAt = ctx.currentTime + (delay||0);
+  g.gain.setValueAtTime(0, startAt);
+  g.gain.linearRampToValueAtTime(gain!=null?gain:0.14, startAt+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001, startAt+duration);
+  osc.connect(g); g.connect(ctx.destination);
+  osc.start(startAt);
+  osc.stop(startAt+duration+0.02);
+}
+function playClick(){ playTone(520, 0.09, "square", 0, 0.08); }
+function playNav(){ playTone(660, 0.07, "triangle", 0, 0.09); playTone(880, 0.07, "triangle", 0.05, 0.06); }
+function playCorrect(){ playTone(660, 0.11, "triangle", 0); playTone(990, 0.16, "triangle", 0.09); }
+function playWrong(){ playTone(220, 0.22, "sawtooth", 0, 0.10); playTone(160, 0.22, "sawtooth", 0.05, 0.08); }
+function playWinner(){ playTone(523, 0.12, "triangle", 0); playTone(659, 0.12, "triangle", 0.1); playTone(784, 0.22, "triangle", 0.2); }
+
+function updateSoundToggleUI(){
+  $("#soundIcon").textContent = state.soundOn ? "🔊" : "🔇";
+  $("#btnSoundToggle").classList.toggle("muted", !state.soundOn);
+  $("#btnSoundToggle").setAttribute("aria-pressed", state.soundOn ? "true":"false");
+}
+$("#btnSoundToggle").addEventListener("click", ()=>{
+  state.soundOn = !state.soundOn;
+  updateSoundToggleUI();
+  if(state.soundOn) playNav();
+});
+updateSoundToggleUI();
 
 function updateHUD(){
   $("#statScore").textContent = state.score;
@@ -520,7 +754,7 @@ function showScreen(name){
   $$(".screen").forEach(s=>s.classList.remove("active"));
   $("#screen-"+name).classList.add("active");
   $$(".nav-btn").forEach(b=>b.classList.remove("active"));
-  const navMap = {home:"home", scan:"scan", quiz:"quiz", race:"race", result:"home"};
+  const navMap = {home:"home", scan:"scan", quiz:"quiz", race:"race", result:"home", name:"home", leaderboard:"leaderboard"};
   const navBtn = document.querySelector('.nav-btn[data-nav="'+navMap[name]+'"]');
   if(navBtn) navBtn.classList.add("active");
 }
@@ -529,8 +763,9 @@ $$(".nav-btn").forEach(btn=>{
   btn.addEventListener("click", ()=>{
     const target = btn.dataset.nav;
     if(target==="scan") startScanMode();
-    else if(target==="quiz") startQuizMode();
-    else if(target==="race") startRaceMode();
+    else if(target==="quiz") goToNameEntry("quiz");
+    else if(target==="race") goToNameEntry("race");
+    else if(target==="leaderboard") openLeaderboard();
     else showScreen("home");
   });
 });
@@ -547,7 +782,7 @@ function renderCatGrid(){
     card.innerHTML = `
       <span class="icon">${cat.icon}</span>
       <div class="name">${cat.name}</div>
-      <div class="count">${collected}/${total} kata dikuasai</div>
+      <div class="count">${collected}/${total} words mastered</div>
       <div class="progress-track"><div class="progress-fill" style="width:${(collected/total)*100}%"></div></div>
     `;
     card.addEventListener("click", ()=>{
@@ -564,19 +799,51 @@ $$(".mode-btn").forEach(btn=>{
   btn.addEventListener("click", ()=>{
     const mode = btn.dataset.mode;
     if(mode==="scan") startScanMode();
-    if(mode==="quiz") startQuizMode();
-    if(mode==="race") startRaceMode();
+    if(mode==="quiz") goToNameEntry("quiz");
+    if(mode==="race") goToNameEntry("race");
+    if(mode==="leaderboard") openLeaderboard();
   });
 });
 $("#btnBackHome1").addEventListener("click", ()=>{ stopCamera(); showScreen("home"); renderCatGrid(); });
 $("#btnHome2").addEventListener("click", ()=>{ showScreen("home"); renderCatGrid(); });
+$("#btnHome3").addEventListener("click", ()=>{ showScreen("home"); renderCatGrid(); });
+$("#btnViewLB").addEventListener("click", ()=> openLeaderboard());
+
+/* ============ NAME ENTRY (for ranked/competitive modes) ============ */
+function goToNameEntry(mode){
+  state.pendingMode = mode;
+  const cat = VOCAB[state.category];
+  if(mode==="quiz"){
+    $("#nameIcon").textContent = "🎯";
+    $("#nameTitle").textContent = "Enter Your Name";
+    $("#nameSub").textContent = "Your score will be posted on the Quiz Challenge leaderboard. Good luck, technician!";
+  } else {
+    $("#nameIcon").textContent = "⚡";
+    $("#nameTitle").textContent = "Enter Your Name";
+    $("#nameSub").textContent = "You'll have 60 seconds — the fastest, most accurate student wins the Word Race!";
+  }
+  $("#nameCatTag").textContent = "CATEGORY: " + cat.name.toUpperCase();
+  $("#nameInput").value = state.studentName || "";
+  showScreen("name");
+  setTimeout(()=> $("#nameInput").focus(), 200);
+}
+$("#btnCancelName").addEventListener("click", ()=>{ showScreen("home"); renderCatGrid(); });
+$("#btnStartRanked").addEventListener("click", ()=> confirmNameAndStart());
+$("#nameInput").addEventListener("keydown", e=>{ if(e.key==="Enter") confirmNameAndStart(); });
+function confirmNameAndStart(){
+  let name = $("#nameInput").value.trim();
+  if(!name) name = "Anonymous " + Math.floor(Math.random()*900+100);
+  state.studentName = name.slice(0,20);
+  if(state.pendingMode==="quiz") startQuizMode();
+  else if(state.pendingMode==="race") startRaceMode();
+}
 
 /* ============ SCAN & LEARN MODE ============ */
 let camStream = null;
 function startScanMode(){
   showScreen("scan");
   $("#arCard").classList.remove("show");
-  $("#scanStatusText").textContent = "SIAP MEMINDAI";
+  $("#scanStatusText").textContent = "READY TO SCAN";
   updateScanProgress();
   tryStartCamera();
 }
@@ -601,26 +868,26 @@ function updateScanProgress(){
   const cat = VOCAB[state.category];
   const collected = state.collected[state.category].size;
   $("#scanBarFill").style.width = (collected/cat.words.length*100)+"%";
-  $("#scanCollected").textContent = collected + " dikumpulkan";
-  $("#scanTotal").textContent = "/ " + cat.words.length + " kata";
+  $("#scanCollected").textContent = collected + " collected";
+  $("#scanTotal").textContent = "/ " + cat.words.length + " words";
 }
 
 $("#btnScan").addEventListener("click", ()=>{
   const cat = VOCAB[state.category];
   const collectedSet = state.collected[state.category];
   let pool = cat.words.filter(w=>!collectedSet.has(w.w));
-  if(pool.length===0) pool = cat.words; // allow re-scan once all collected
+  if(pool.length===0) pool = cat.words;
   const word = pool[Math.floor(Math.random()*pool.length)];
   state.scanCurrentWord = word;
 
-  $("#scanStatusText").textContent = "MEMINDAI...";
+  $("#scanStatusText").textContent = "SCANNING...";
   $("#arCard").classList.remove("show");
   setTimeout(()=>{
-    $("#scanStatusText").textContent = "OBJEK TERDETEKSI";
+    $("#scanStatusText").textContent = "OBJECT DETECTED";
     $("#arIcon").textContent = word.ic;
     $("#arWord").textContent = word.w.toUpperCase();
     $("#arPhonetic").textContent = word.ph;
-    $("#arMeaning").innerHTML = "<b>Arti:</b> " + word.m;
+    $("#arMeaning").innerHTML = "<b>Meaning:</b> " + word.m;
     $("#arExample").textContent = '"' + word.ex + '"';
     $("#arCard").classList.add("show");
     speak(word.w);
@@ -639,14 +906,14 @@ $("#btnCollect").addEventListener("click", ()=>{
   if(wasNew){ addScore(5, true); }
   updateScanProgress();
   $("#arCard").classList.remove("show");
-  $("#scanStatusText").textContent = "SIAP MEMINDAI";
+  $("#scanStatusText").textContent = "READY TO SCAN";
 
   const total = Object.values(VOCAB).reduce((a,c)=>a+c.words.length,0);
   const totalCollected = Object.values(state.collected).reduce((a,s)=>a+s.size,0);
   if(totalCollected>=total){ checkBadges(); }
 });
 
-/* ============ QUIZ MODE ============ */
+/* ============ QUIZ CHALLENGE MODE ============ */
 function buildQuizQueue(){
   const cat = VOCAB[state.category];
   const shuffled = [...cat.words].sort(()=>Math.random()-0.5);
@@ -656,6 +923,7 @@ function startQuizMode(){
   state.quiz.queue = buildQuizQueue();
   state.quiz.index = 0;
   state.quiz.correctCount = 0;
+  state.quiz.sessionPoints = 0;
   showScreen("quiz");
   renderQuizQuestion();
 }
@@ -663,13 +931,12 @@ function renderQuizQuestion(){
   clearInterval(state.quiz.timer);
   const q = state.quiz.queue[state.quiz.index];
   const cat = VOCAB[state.category];
-  $("#quizNum").textContent = `SOAL ${state.quiz.index+1} / ${state.quiz.queue.length}`;
+  $("#quizNum").textContent = `QUESTION ${state.quiz.index+1} / ${state.quiz.queue.length}`;
   $("#quizCat").textContent = cat.name.toUpperCase();
   $("#quizIcon").textContent = q.ic;
-  $("#quizQuestion").textContent = `Kata untuk "${q.m}" adalah?`;
-  $("#quizSub").textContent = "Pilih jawaban bahasa Inggris yang tepat";
+  $("#quizQuestion").textContent = `Which English word means "${q.m}"?`;
+  $("#quizSub").textContent = "Choose the correct English word";
 
-  // build options: 1 correct + 3 distractors from same category
   let distractors = cat.words.filter(w=>w.w!==q.w).sort(()=>Math.random()-0.5).slice(0,3);
   let options = [q, ...distractors].sort(()=>Math.random()-0.5);
 
@@ -703,8 +970,15 @@ function handleQuizAnswer(chosen, correct, btnEl){
   });
   const isCorrect = chosen && chosen.w===correct.w;
   if(!isCorrect && btnEl) btnEl.classList.add("wrong");
-  if(isCorrect){ addScore(10 + state.streak*2, true); state.quiz.correctCount = (state.quiz.correctCount||0)+1; }
-  else { addScore(0, false); }
+  isCorrect ? playCorrect() : playWrong();
+  if(isCorrect){
+    const pts = 10 + state.streak*2;
+    addScore(pts, true);
+    state.quiz.sessionPoints += pts;
+    state.quiz.correctCount++;
+  } else {
+    addScore(0, false);
+  }
 
   setTimeout(()=>{
     state.quiz.index++;
@@ -717,7 +991,15 @@ function handleQuizAnswer(chosen, correct, btnEl){
 }
 function finishQuiz(){
   checkBadges();
-  showResult("Quiz Selesai!", `${state.quiz.correctCount}/${state.quiz.queue.length} jawaban benar`);
+  state.leaderboards.quiz.push({
+    name: state.studentName,
+    points: state.quiz.sessionPoints,
+    correct: state.quiz.correctCount,
+    total: state.quiz.queue.length,
+    category: VOCAB[state.category].name,
+  });
+  state.leaderboards.quiz.sort((a,b)=> b.points - a.points);
+  showResult("Quiz Complete!", `${state.quiz.correctCount}/${state.quiz.queue.length} correct answers · ${state.quiz.sessionPoints} pts earned`);
 }
 
 /* ============ WORD RACE MODE ============ */
@@ -740,10 +1022,18 @@ function startRaceMode(){
     if(state.race.timeLeft<=0){
       clearInterval(state.race.timer);
       state.race.active = false;
-      checkBadges();
-      showResult("Waktu Habis!", `${state.race.score} kata terjawab benar`);
+      finishRace();
     }
   }, 1000);
+}
+function finishRace(){
+  checkBadges();
+  state.leaderboards.race.push({
+    name: state.studentName,
+    words: state.race.score,
+  });
+  state.leaderboards.race.sort((a,b)=> b.words - a.words);
+  showResult("Time's Up!", `${state.race.score} words answered correctly`);
 }
 function nextRaceWord(){
   const all = allWordsFlat();
@@ -765,6 +1055,7 @@ function nextRaceWord(){
       $$("#raceOpts .race-opt").forEach(b=>b.style.pointerEvents="none");
       const isCorrect = opt.m===word.m;
       btn.classList.add(isCorrect ? "correct":"wrong");
+      isCorrect ? playCorrect() : playWrong();
       if(isCorrect){ state.race.score++; addScore(4, true); }
       else{ addScore(0,false);
         $$("#raceOpts .race-opt").forEach(b=>{ if(b.textContent===word.m) b.classList.add("correct"); });
@@ -777,10 +1068,15 @@ function nextRaceWord(){
 
 /* ============ BADGES & RESULTS ============ */
 const BADGE_DEFS = [
-  { id:"otomotif", icon:"🚗", name:"Otomotif", test:()=> state.collected.otomotif.size >= VOCAB.otomotif.words.length },
-  { id:"kelistrikan", icon:"⚡", name:"Listrik", test:()=> state.collected.kelistrikan.size >= VOCAB.kelistrikan.words.length },
+  { id:"otomotif", icon:"🚗", name:"Automotive", test:()=> state.collected.otomotif.size >= VOCAB.otomotif.words.length },
+  { id:"kelistrikan", icon:"🔬", name:"Electronics", test:()=> state.collected.kelistrikan.size >= VOCAB.kelistrikan.words.length },
   { id:"keselamatan", icon:"🦺", name:"Safety", test:()=> state.collected.keselamatan.size >= VOCAB.keselamatan.words.length },
-  { id:"perkakas", icon:"🛠️", name:"Perkakas", test:()=> state.collected.perkakas.size >= VOCAB.perkakas.words.length },
+  { id:"perkakas", icon:"🛠️", name:"Tools", test:()=> state.collected.perkakas.size >= VOCAB.perkakas.words.length },
+  { id:"tkj", icon:"💻", name:"TKJ", test:()=> state.collected.tkj.size >= VOCAB.tkj.words.length },
+  { id:"broadcasting", icon:"🎬", name:"Broadcasting", test:()=> state.collected.broadcasting.size >= VOCAB.broadcasting.words.length },
+  { id:"elektro", icon:"🔌", name:"Elektro", test:()=> state.collected.elektro.size >= VOCAB.elektro.words.length },
+  { id:"bangunan", icon:"🏗️", name:"Construction", test:()=> state.collected.bangunan.size >= VOCAB.bangunan.words.length },
+  { id:"mesin", icon:"⚙️", name:"Mechanical", test:()=> state.collected.mesin.size >= VOCAB.mesin.words.length },
   { id:"streak", icon:"🔥", name:"Streak 5+", test:()=> state.bestStreak >= 5 },
   { id:"speed", icon:"🏁", name:"Speed Demon", test:()=> state.race.score >= 15 },
 ];
@@ -807,6 +1103,88 @@ function showResult(title, detail){
 }
 $("#btnReplay").addEventListener("click", ()=>{
   showScreen("home"); renderCatGrid();
+});
+
+/* ============ CLASS LEADERBOARD ============ */
+$$(".lb-tab").forEach(tab=>{
+  tab.addEventListener("click", ()=>{
+    playClick();
+    $$(".lb-tab").forEach(t=>t.classList.remove("active"));
+    tab.classList.add("active");
+    $$(".lb-panel").forEach(p=>p.classList.remove("active"));
+    $("#lbPanel" + (tab.dataset.tab==="quiz" ? "Quiz":"Race")).classList.add("active");
+  });
+});
+function openLeaderboard(){
+  playNav();
+  renderLeaderboard();
+  showScreen("leaderboard");
+  if(state.leaderboards.quiz.length || state.leaderboards.race.length){
+    setTimeout(playWinner, 200);
+  }
+}
+function renderLeaderboard(){
+  const quizList = $("#lbQuizList");
+  const raceList = $("#lbRaceList");
+  quizList.innerHTML = "";
+  raceList.innerHTML = "";
+
+  if(state.leaderboards.quiz.length===0){
+    quizList.innerHTML = `<div class="lb-empty">No results yet. Be the first to compete in Quiz Challenge! 🎯</div>`;
+  } else {
+    state.leaderboards.quiz.slice(0,10).forEach((entry, i)=>{
+      const rank = i+1;
+      const row = document.createElement("div");
+      row.className = "lb-row rank-"+rank + (rank===1 ? " winner":"");
+      row.innerHTML = `
+        <div class="lb-rank">${rank}</div>
+        <div class="lb-info">
+          <div class="lb-name">${escapeHtml(entry.name)} ${rank===1?'<span class="lb-crown">🏆 WINNER</span>':''}</div>
+          <div class="lb-meta">${entry.correct}/${entry.total} correct · ${entry.category}</div>
+        </div>
+        <div class="lb-score">${entry.points}</div>
+      `;
+      quizList.appendChild(row);
+    });
+  }
+
+  if(state.leaderboards.race.length===0){
+    raceList.innerHTML = `<div class="lb-empty">No results yet. Be the first to compete in Word Race! ⚡</div>`;
+  } else {
+    state.leaderboards.race.slice(0,10).forEach((entry, i)=>{
+      const rank = i+1;
+      const row = document.createElement("div");
+      row.className = "lb-row rank-"+rank + (rank===1 ? " winner":"");
+      row.innerHTML = `
+        <div class="lb-rank">${rank}</div>
+        <div class="lb-info">
+          <div class="lb-name">${escapeHtml(entry.name)} ${rank===1?'<span class="lb-crown">🏆 WINNER</span>':''}</div>
+          <div class="lb-meta">60-second Word Race</div>
+        </div>
+        <div class="lb-score">${entry.words}</div>
+      `;
+      raceList.appendChild(row);
+    });
+  }
+}
+function escapeHtml(str){
+  const d = document.createElement("div");
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+$("#btnResetLB").addEventListener("click", ()=>{
+  playClick();
+  if(confirm("Reset the class leaderboard? This will clear all Quiz Challenge and Word Race results.")){
+    state.leaderboards.quiz = [];
+    state.leaderboards.race = [];
+    renderLeaderboard();
+  }
+});
+$("#btnPresent").addEventListener("click", ()=>{
+  playClick();
+  document.body.classList.toggle("present");
+  $("#btnPresent").textContent = document.body.classList.contains("present") ? "📴 Exit Presentation" : "📽 Presentation Mode";
 });
 
 window.addEventListener("beforeunload", stopCamera);
